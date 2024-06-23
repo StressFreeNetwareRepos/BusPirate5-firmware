@@ -7,7 +7,9 @@ RUN apt-get update \
         bash \
         wget \
         curl \
-        python3 \
+	python3 \
+	python3-venv \
+        python3-full \
         python3-pip \
         build-essential \
         git \
@@ -16,8 +18,9 @@ RUN apt-get update \
         libstdc++-arm-none-eabi-newlib \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN python3 -m pip install cmake \
+RUN python3 -m venv virtenv 
+RUN source ./virtenv/bin/activate
+RUN ./virtenv/bin/pip install cmake \
     && git clone https://github.com/raspberrypi/pico-sdk.git /opt/pico-sdk \
     && git -C /opt/pico-sdk submodule update --init
 
